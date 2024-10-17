@@ -1,0 +1,11 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "MyApp",
+  "short_name": "MyApp",
+  "version": "com.example.app",
+  "description": "A simple PhoneGap app.",
+  "author": "Developer Name",
+  "icons": [],
+  "start_url": "index.html"
+}
