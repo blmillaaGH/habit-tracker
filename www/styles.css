@@ -1,7 +1,29 @@
 body {
-    font-family: Arial;
-    background-color: black;
-    color: white;
+    font-family:  'Roboto', sans-serif;
+    background-color: #D2B48C;
+    color: #3E3D32;
+}
+
+.navbar{
+    background-color: #556B2F;
+    padding: 15px;
+    text-align: center;
+}
+
+.nav-links{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+.nav-links li{
+    margin: 0 15px;
+}
+.nav-links a{
+    text-decoration: none;
+    color: #D2B48C;
+    font-weight: bold;
 }
 
 .container{
@@ -9,6 +31,7 @@ body {
     max-width: 600px;
     margin: auto;
     padding: 20px;
+    text-align: center;
 }
 
 h1{
@@ -20,15 +43,55 @@ input {
     padding: 10px;
 }
 
+input[type="text"] {
+    margin-bottom: 15px; 
+    padding: 10px; 
+    border: 1px solid #ccc; 
+    border-radius: 5px;
+}
+
 button {
     padding: 10px;
-    background-color: black;
-    color: #818080;
+    background-color:#556B2F;
+    color:  #D2B48C;
     border: none;
     cursor: pointer;
-    margin-top: 5px;
+    border-radius: 5px;
 }
 
 .fraseMotivadora{
-    color: #818080;
+    color: #3E3D32;
 }
+
+#habitList
+canvas {
+    width: 100% !important; 
+    height: auto; /
+}
+
+#habitList {
+    list-style-type: none; 
+    margin: 20px 0;
+
+}
+
+ul#habitList li {
+    font-size: 18px;
+}
+
+#habitList li {
+    background-color: #D2B48C; 
+    color: #3E3D32; 
+    padding: 10px; 
+    margin-bottom: 10px;
+    border-radius: 5px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+#habitList li.completed {
+    background-color: #8FBC8F;
+    text-decoration: line-through; 
+}
+

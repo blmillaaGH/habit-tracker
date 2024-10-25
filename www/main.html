@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+    <title>Habit Tracker</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="main.html">INICIO</a></li>
+            <li><a href="#Progreso">PROGRESO</a></li>
+            <li><a href="#Congiguracion">CONFIGURACIÓN</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Habit Tracker</h1>
+        <p class="fraseMotivadora"> "No cuentes los días, haz que los días cuenten."
+            — Muhammad Ali</p>
+        <ul id="habitList"></ul>
+        <input type="text" id="habitInput" placeholder="Agregar un Hábito"> 
+        <button id="addHabitBtn">Agregar Hábito</button>
+        <ul id="habitList"></ul>
+    </div>
+
+    
+    <div class="container">
+        <h2>¿Cómo te sientes hoy?</h2>
+        <input type="number" id="moodInput" min="1" max="10" placeholder="1-10" />
+        <button id="submitMoodBtn">Guardar Estado</button>
+    </div>
+    
+
+    <h1>Revisión Semanal</h1>
+
+    <canvas id="moodLineChart" width="400" height="200"></canvas>
+    
+    <canvas id="graficoHabitos" width="400" height="400"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
