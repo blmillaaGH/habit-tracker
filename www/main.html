@@ -13,7 +13,6 @@
         <ul class="nav-links">
             <li><a href="main.html">INICIO</a></li>
             <li><a href="#Progreso">PROGRESO</a></li>
-            <li><a href="#Congiguracion">CONFIGURACIÓN</a></li>
         </ul>
     </nav>
     <div class="container">
@@ -24,21 +23,9 @@
         <input type="text" id="habitInput" placeholder="Agregar un Hábito"> 
         <button id="addHabitBtn">Agregar Hábito</button>
         <ul id="habitList"></ul>
-    </div>
-
-    
-    <div class="container">
-        <h2>¿Cómo te sientes hoy?</h2>
-        <input type="number" id="moodInput" min="1" max="10" placeholder="1-10" />
-        <button id="submitMoodBtn">Guardar Estado</button>
-    </div>
-    
-
+    </div>    
     <h1>Revisión Semanal</h1>
-
-    <canvas id="moodLineChart" width="400" height="200"></canvas>
-    
-    <canvas id="graficoHabitos" width="400" height="400"></canvas>
+     <canvas id="graficoHabitos" width="400" height="400"></canvas>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="main.js"></script>
 </body>
