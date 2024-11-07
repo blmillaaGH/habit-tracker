@@ -4,7 +4,11 @@ const habitInput = document.getElementById('habitInput');
 const addHabitBtn = document.getElementById('addHabitBtn');
 const habitList = document.getElementById('habitList');
 
-let habits = [];
+let habits = JSON.parse(localStorage.getItem('habits')) || [];
+let habitsData = JSON.parse(localStorage.getItem('habitsData')) || [6, 4, 3, 5, 2, 2, 3];
+
+// Llamar a renderHabits() inmediatamente después de cargar los datos
+renderHabits();
 
 addHabitBtn.addEventListener('click', () => {
     const habitText = habitInput.value;
@@ -19,9 +23,15 @@ addHabitBtn.addEventListener('click', () => {
 
         habitInput.value = '';
 
+        saveHabits();
         renderHabits();
     }
 });
+
+function saveHabits() {
+    localStorage.setItem('habits', JSON.stringify(habits));
+    localStorage.setItem('habitsData', JSON.stringify(habitsData));
+}
 
 function renderHabits() {
     habitList.innerHTML = '';
@@ -30,17 +40,10 @@ function renderHabits() {
         const li = document.createElement('li');
         li.textContent = habit.text;
 
-        if (habit.completed) {
-            li.style.textDecoration = 'line-through';
-            li.style.color = '#556B2';
-        }
-
         const completeBtn = document.createElement('button');
         completeBtn.textContent = 'Completar';
         completeBtn.addEventListener('click', () => {
-            habit.completed = true;
-            incrementHabitCompletion();
-            renderHabits();
+            completeHabit(index);
         });
 
         li.appendChild(completeBtn);
@@ -48,17 +51,34 @@ function renderHabits() {
     });
 }
 
-// Función para obtener el índice del día actual (0 = Lun, 6 = Dom)
+function completeHabit(index) {
+    const habit = habits[index];
+    habit.completed = true;
+
+    // Eliminar hábito del array
+    habits.splice(index, 1);
+
+    // Incrementar el conteo de hábitos completados
+    incrementHabitCompletion();
+
+    // Guardar y renderizar hábitos actualizados
+    saveHabits();
+    renderHabits();
+}
+
+
 function getCurrentDayIndex() {
     const today = new Date();
     const day = today.getDay(); // 0 = Dom, 1 = Lun, ..., 6 = Sáb
-    return day === 0 ? 6 : day - 1; // Ajustar para que 0 = Lun, ..., 6 = Dom
+    return day === 0 ? 6 : day - 1; // 0 = Lun, ..., 6 = Dom
 }
 
 function incrementHabitCompletion() {
     const currentDayIndex = getCurrentDayIndex();
-    miGrafico.data.datasets[0].data[currentDayIndex] += 1;
+    habitsData[currentDayIndex] += 1;
+    miGrafico.data.datasets[0].data = habitsData;
     miGrafico.update();
+    saveHabits();
 }
 
 const miGrafico = new Chart(ctx, {
@@ -67,7 +87,7 @@ const miGrafico = new Chart(ctx, {
         labels: ['Lun', 'Mart', 'Miér', 'Juev', 'Vier', 'Sáb', 'Dom'],
         datasets: [{
             label: 'Hábitos Completados',
-            data: [6, 4, 3, 5, 2, 2, 3],
+            data: habitsData,
             backgroundColor: 'rgba(86, 107, 47, 0.5)',
             borderColor: 'rgba(86, 107, 47, 1)',
             borderWidth: 1
@@ -82,25 +102,24 @@ const miGrafico = new Chart(ctx, {
     }
 });
 
-const moodCtx = document.getElementById('moodLineChart').getContext('2d');
 
 // Datos de ejemplo 
 const moodData = {
-    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'], // Días de la semana
+    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'], 
     datasets: [{
         label: 'Estado de Ánimo',
         data: [4, 2, 2, 3, 4, 2, 4], //valores sobre como me senti
-        backgroundColor: 'rgba(86, 107, 47, 0.2)', // Color de fondo
-        borderColor: 'rgba(86, 107, 47, 1)', // Color de la línea
+        backgroundColor: 'rgba(86, 107, 47, 0.2)', 
+        borderColor: 'rgba(86, 107, 47, 1)', 
         borderWidth: 2,
-        fill: true, // Rellenar el área debajo de la línea
-        tension: 0.3 // Curvatura de la línea
+        fill: true, 
+        tension: 0.3 
     }]
 };
 
 // Crear el gráfico
 const moodLineChart = new Chart(moodCtx, {
-    type: 'line', // Tipo de gráfico
+    type: 'line', 
     data: moodData,
     options: {
         scales: {
