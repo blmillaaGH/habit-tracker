@@ -1,8 +1,8 @@
 const ctx = document.getElementById('graficoHabitos').getContext('2d');
 
-const habitIput = document.getElementById('habitInput')
-const addHabitBtn = document.getElementById('addHabitBtn')
-const habitList = document.getElementById('habitList')
+const habitInput = document.getElementById('habitInput');
+const addHabitBtn = document.getElementById('addHabitBtn');
+const habitList = document.getElementById('habitList');
 
 let habits = [];
 
@@ -10,7 +10,6 @@ addHabitBtn.addEventListener('click', () => {
     const habitText = habitInput.value;
 
     if (habitText) {
- 
         const habit = {
             text: habitText,
             completed: false
@@ -23,7 +22,6 @@ addHabitBtn.addEventListener('click', () => {
         renderHabits();
     }
 });
-
 
 function renderHabits() {
     habitList.innerHTML = '';
@@ -41,12 +39,26 @@ function renderHabits() {
         completeBtn.textContent = 'Completar';
         completeBtn.addEventListener('click', () => {
             habit.completed = true;
+            incrementHabitCompletion();
             renderHabits();
         });
 
         li.appendChild(completeBtn);
         habitList.appendChild(li);
     });
+}
+
+// Función para obtener el índice del día actual (0 = Lun, 6 = Dom)
+function getCurrentDayIndex() {
+    const today = new Date();
+    const day = today.getDay(); // 0 = Dom, 1 = Lun, ..., 6 = Sáb
+    return day === 0 ? 6 : day - 1; // Ajustar para que 0 = Lun, ..., 6 = Dom
+}
+
+function incrementHabitCompletion() {
+    const currentDayIndex = getCurrentDayIndex();
+    miGrafico.data.datasets[0].data[currentDayIndex] += 1;
+    miGrafico.update();
 }
 
 const miGrafico = new Chart(ctx, {
@@ -71,8 +83,6 @@ const miGrafico = new Chart(ctx, {
 });
 
 const moodCtx = document.getElementById('moodLineChart').getContext('2d');
-
-
 
 // Datos de ejemplo 
 const moodData = {
@@ -109,6 +119,3 @@ const moodLineChart = new Chart(moodCtx, {
         }
     }
 });
-
-
-
