@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -32,16 +33,20 @@ public class UsuarioController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
-    String email = loginData.get("email");
-    String password = loginData.get("password");
-
-    Optional<Usuario> usuario = usuarioService.login(email, password);
+    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> loginData) {
+        String email = loginData.get("email");
+        String password = loginData.get("password");
     
-    if (usuario.isPresent()) {
-        return ResponseEntity.ok("Login exitoso");
-    } else {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+        Optional<Usuario> usuario = usuarioService.login(email, password);
+        
+        Map<String, String> response = new HashMap<>();
+        if (usuario.isPresent()) {
+            response.put("message", "Login exitoso");
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("message", "Credenciales inválidas");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
     }
-}
+    
 }

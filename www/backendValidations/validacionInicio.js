@@ -15,10 +15,14 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         return response.json();
     })
     .then(data => {
-        window.location.href = "main.html";
+        if (data.message === "Login exitoso") {
+            window.location.href = "main.html";
+        } else {
+            throw new Error(data.message);
+        }
     })
     .catch(error => {
-        console.error(error.message); // Imprime el error en la consola
-        alert("LOGIN INVÁLIDO"); // Muestra una alerta al usuario
+        console.error(error.message); 
+        alert("LOGIN INVÁLIDO"); 
     });
 });

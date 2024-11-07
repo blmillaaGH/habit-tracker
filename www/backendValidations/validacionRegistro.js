@@ -5,7 +5,7 @@ document.getElementById("registroForm").addEventListener("submit", function(even
     const password = document.getElementById("password").value;
     const errorMessage = document.getElementById("error-message");
 
-    fetch('http://localhost:8080/api/auth/registro', {
+    fetch('http://localhost:8080/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })  
